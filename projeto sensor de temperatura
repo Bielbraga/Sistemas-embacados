@@ -1,0 +1,254 @@
+#define n 20
+
+long moving_average();
+
+int original,
+
+filtrado;
+
+int numbers[n];
+
+float temperatura;
+
+float valor_temperatura_c;
+
+float escala;
+
+float valor_temperatura_k;
+
+float valor_temperatura_f;
+
+int led_1=11;
+
+int led_2=2;
+
+int led_3=3;
+
+int led_4=4;
+
+int led_5=5;
+
+int led_6=6;
+
+int led_7=7;
+
+int led_8=8;
+
+int led_9=9;
+
+int led_10=10;
+
+void setup()
+
+{
+
+pinMode(A1,INPUT);
+
+pinMode(led_1,OUTPUT);
+
+pinMode(led_2,OUTPUT);
+
+pinMode(led_3,OUTPUT);
+
+pinMode(led_4,OUTPUT);
+
+pinMode(led_5,OUTPUT);
+
+pinMode(led_6,OUTPUT);
+
+pinMode(led_7,OUTPUT);
+
+pinMode(led_8,OUTPUT);
+
+pinMode(led_9,OUTPUT);
+
+pinMode(led_10,OUTPUT);
+
+Serial.begin(9600);
+
+}
+
+void loop()
+
+{ temperatura= analogRead (A1);;
+
+original = analogRead(A1);
+
+filtrado = moving_average();
+
+Serial.print("valor original ");
+
+Serial.print(original);
+
+Serial.print(" media ");
+
+Serial.println(filtrado);
+
+
+
+valor_temperatura_c=map(temperatura,20,358,-40,125);
+
+valor_temperatura_k=map(temperatura,20,358,233,398);
+
+valor_temperatura_f=map(temperatura,20,358,-40,257);
+
+escala=map(temperatura,20,358,0,9);
+
+Serial.println(temperatura);
+
+Serial.print("*temperaturac");
+
+Serial.println(valor_temperatura_c );
+
+Serial.print("temperatura*k");
+
+Serial.println(valor_temperatura_k);
+
+Serial.print("temperatura*f");
+
+Serial.println(valor_temperatura_f);
+
+Serial.println();
+  delay(250);
+
+if (escala==0)
+
+{ of_led();
+
+digitalWrite(led_1,HIGH);
+
+}
+
+if (escala==1)
+
+{
+
+of_led();
+
+digitalWrite(led_2,HIGH);
+
+}
+
+if (escala==2)
+
+{
+
+of_led();
+
+digitalWrite(led_3,HIGH);
+
+}
+
+if (escala==3)
+
+{
+
+of_led();
+
+digitalWrite(led_4,HIGH);
+
+}
+
+if (escala==4)
+
+{
+
+of_led();
+
+digitalWrite(led_5,HIGH);
+
+}
+
+if (escala==5)
+
+{
+
+of_led();
+
+digitalWrite(led_6,HIGH);
+
+}
+
+if (escala==6)
+
+{
+
+of_led();
+
+digitalWrite(led_7,HIGH);
+
+}
+
+if (escala==7)
+
+{
+
+of_led();
+
+digitalWrite(led_8,HIGH);
+
+}
+
+if (escala==8)
+
+{
+
+of_led();
+
+digitalWrite(led_9,HIGH);
+
+}
+
+if (escala==9)
+
+{
+
+of_led();
+
+digitalWrite(led_10,HIGH);
+
+}
+
+}
+
+long moving_average()
+
+{
+
+for(int i= n-1; i>0; i--) numbers[i] = numbers[i-1];
+
+numbers[0] = original;
+
+long acc = 0;
+
+for(int i=0; i<n; i++) acc += numbers[i];
+
+return acc/n;
+
+}
+
+void of_led()
+
+{
+
+digitalWrite(led_1,LOW);
+
+digitalWrite(led_2,LOW);
+
+digitalWrite(led_3,LOW);
+
+digitalWrite(led_4,LOW);
+
+digitalWrite(led_5,LOW);
+
+digitalWrite(led_6,LOW);
+
+digitalWrite(led_7,LOW);
+
+digitalWrite(led_8,LOW);
+
+digitalWrite(led_9,LOW);
+
+digitalWrite(led_10,LOW);
+
+}
